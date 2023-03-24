@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Create Article</title>
+        <h:outputStylesheet library="css" name="main.css" />
+        <h:outputStylesheet library="css" name="primeflex.min.css" />
+    </h:head>
+    <h:body>
+        <h:form id="mainform">
+            <p:outputPanel id="container" class="container">
+                <div class="title">
+                    Create Articles
+                </div>
+                <div class="content">
+                    <h:panelGrid columns="2" styleClass="ui-fluid" style="width: 100%">
+                        <p:outputLabel for="name" value="Article name" />
+                        <p:inputText id="name" placeholder="Enter article name" value="#{articleCreateController.article.title}" />
+                        <p:outputLabel for="category" value="Category" />
+                        <p:selectOneMenu id="category"
+                                         value="#{articleCreateController.article.category}"
+                                         converter="entityConverter">
+                            <f:selectItems value="#{articleCreateController.categories}"
+                                           var="category"
+                                           itemValue="#{category}"
+                                           itemLabel="#{category.name}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="content" value="Content" />
+                        <p:inputTextarea id="content"
+                                         placeholder="Enter article's content"
+                                         value="#{articleCreateController.article.contents}" />
+                        <h:outputText/>
+                        <p:commandButton value="Submit" action="#{articleCreateController.save()}" />
+                    </h:panelGrid>
+                </div>
+            </p:outputPanel>
+        </h:form>
+    </h:body>
+</html>

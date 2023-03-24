@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Category</title>
+        <h:outputStylesheet library="css" name="main.css" />
+        <h:outputStylesheet library="css" name="primeflex.min.css" />
+    </h:head>
+    <h:body>
+        <h:form id="mainform">
+            <p:outputPanel id="container" class="container">
+                <div class="title">
+                    Categories
+                </div>
+                <div class="toolbar">
+                    <p:button value="Add" styleClass="p-ml-2" outcome="create.xhtml" />
+                </div>
+                <div class="content">
+                    <p:dataTable id="dataTable" value="#{categoryListController.categories}" var="category" >
+                        <p:column headerText="Category name">
+                            <h:outputText value="#{category.name}"/>
+                        </p:column>
+                        <p:column headerText="Creation date">
+                            <h:outputText value="#{category.createdAt}">
+                                <f:convertDateTime locale="id" parent="dd MMMM yyyy HH:mm"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Actions">
+                            <p:link outcome="edit.xhtml" value="Edit">
+                                <f:param name="id" value="#{category.id}" />
+                            </p:link> | 
+                            <p:commandLink value="delete" 
+                                           actionListener="#{categoryListController.remove(category)}"
+                                           update="dataTable"/>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </p:outputPanel>
+        </h:form>
+    </h:body>
+</html>

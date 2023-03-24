@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Article</title>
+        <h:outputStylesheet library="css" name="main.css" />
+        <h:outputStylesheet library="css" name="primeflex.min.css" />
+    </h:head>
+    <h:body>
+        <h:form id="mainForm">
+            <p:outputPanel id="container" class="container">
+                <div class="title">
+                    Articles
+                </div>
+                <div class="toolbar">
+                    <p:inputText value="#{articleListController.filterText}"
+                                 placeholder="Enter article title" />
+                    
+                    <p:commandButton icon="pi pi-search"
+                                     update=":mainForm:dataTable"
+                                     value="search"
+                                     actionListener="#{articleListController.search()}" /> 
+                    
+                    <p:button value="Add"
+                              outcome="create.xhtml"
+                              style="margin-left: 16px"/>
+                </div>
+                <div class="content">
+                    <p:dataTable id="dataTable" value="#{articleListController.articles}" var="article" >
+                        
+                        <p:column headerText="Article title">
+                            <h:outputText value="#{article.title}"/><br/>
+                            <h:outputText value="#{article.category.name}" style="font-size: 12px; color: #666666"/>
+                        </p:column>
+                        
+                        <p:column headerText="Content">
+                            <h:outputText value="#{article.contents}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Creation date" style="width: 160px">
+                            <h:outputText value="#{article.createdAt}">
+                                <f:convertDateTime locale="id" parent="dd MMMM yyyy HH:mm"/>
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column headerText="Actions" style="width: 140px; text-align: center">
+                            <p:link outcome="edit.xhtml" value="Edit">
+                                <f:param name="id" value="#{article.id}" />
+                            </p:link> | 
+                            <p:commandLink value="delete" 
+                                           actionListener="#{articleListController.remove(article)}"
+                                           update="dataTable"/>
+                        </p:column>
+                    </p:dataTable>
+                    <div style="text-align: right; padding: 16px">
+                        <p:commandButton value="Load more"
+                                         actionListener="#{articleListController.loadMore()}"
+                                         update=":mainForm:dataTable"/>
+                    </div>
+                </div>
+            </p:outputPanel>
+        </h:form>
+    </h:body>
+</html>
