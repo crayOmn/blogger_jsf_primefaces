@@ -15,25 +15,42 @@
                     Create Articles
                 </div>
                 <div class="content">
-                    <h:panelGrid columns="2" styleClass="ui-fluid" style="width: 100%">
-                        <p:outputLabel for="name" value="Article name" />
-                        <p:inputText id="name" placeholder="Enter article name" value="#{articleCreateController.article.title}" />
-                        <p:outputLabel for="category" value="Category" />
-                        <p:selectOneMenu id="category"
-                                         value="#{articleCreateController.article.category}"
-                                         converter="entityConverter">
-                            <f:selectItems value="#{articleCreateController.categories}"
-                                           var="category"
-                                           itemValue="#{category}"
-                                           itemLabel="#{category.name}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel for="content" value="Content" />
-                        <p:inputTextarea id="content"
-                                         placeholder="Enter article's content"
-                                         value="#{articleCreateController.article.contents}" />
-                        <h:outputText/>
-                        <p:commandButton value="Submit" action="#{articleCreateController.save()}" />
-                    </h:panelGrid>
+                    <div class="content-body p-shadow-1">
+                        <h:panelGrid columns="2" styleClass="ui-fluid" style="width: 100%">
+                            <p:outputLabel for="name" value="Article name" />
+                            <p:inputText id="name" placeholder="Enter article name" value="#{articleCreateController.article.title}" />
+                            <p:outputLabel for="category" value="Category" />
+                            <p:selectOneMenu id="category"
+                                             value="#{articleCreateController.article.category}"
+                                             converter="entityConverter">
+                                <f:selectItems value="#{articleCreateController.categories}"
+                                               var="category"
+                                               itemValue="#{category}"
+                                               itemLabel="#{category.name}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel for="cover" value="Cover Image" />
+                            <p:fileUpload id="cover" value="#{articleCreateController.uploadedFile}"
+                                          listener="#{articleCreateController.handleUpload}"
+                                          skinSimple="true"
+                                          mode="simple"
+                                          auto="true"
+                                          update=":mainForm:imagePanel"/>
+                            <h:outputText/>
+                            <p:outputPanel id="imagePanel">
+                                <p:graphicImage value="#{imageStreamer.file}"
+                                                styleClass="gambar-cover"
+                                                rendered="#{articleCreateController.article.picture != null}">
+                                    <f:param name="filename" value="#{articleCreateController.article.picture}"/>
+                                </p:graphicImage>
+                            </p:outputPanel>
+                            <p:outputLabel for="content" value="Content" />
+                            <p:textEditor id="content"
+                                              value="#{articleCreateController.article.contents}"
+                                              height="600"/>
+                            <h:outputText/>
+                            <p:commandButton value="Submit" action="#{articleCreateController.save()}" />
+                        </h:panelGrid>
+                        </div>
                 </div>
             </p:outputPanel>
         </ui:define>

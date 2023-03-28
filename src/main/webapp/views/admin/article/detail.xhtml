@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/resources/tpl/admin.xhtml">
+        <ui:define name="title">
+            <title>#{articleEditController.article.title}</title>
+        </ui:define>
+        <ui:define name="main">
+            <p:outputPanel id="container" class="container">
+                <div class="title">
+                    <p:button outcome="list.xhtml" value="Back" /> #{articleDetailController.article.title}
+                </div>
+                <div class="content">
+                    <div class="content-body p-shadow-1">
+                        <p:graphicImage value="#{imageStreamer.file}"
+                                        rendered="#{articleDetailController.article.picture != null}"
+                                        styleClass="gambar-cover">
+                            <f:param name="filename" value="#{articleDetailController.article.picture}"/>
+                        </p:graphicImage>
+                        <div>
+                            <h:outputText value="#{articleDetailController.article.contents}" escape="false" />
+                        </div>
+                    </div>
+                </div>
+            </p:outputPanel>
+        </ui:define>
+    </ui:composition>
+</html>

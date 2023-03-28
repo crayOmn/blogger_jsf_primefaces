@@ -54,6 +54,11 @@ body {
     padding-top: 64px;
 }
 
+.content-body {
+    padding: 32px;
+    background-color: #fff;
+}
+
 .title {
     margin: 16px 32px;
     font-size: 24px;
