@@ -5,6 +5,7 @@
 package com.proxiad.mavenproject2.service;
 
 import com.proxiad.mavenproject2.entity.Article;
+import com.proxiad.mavenproject2.entity.Category;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +29,15 @@ public class ArticleService {
     public List<Article> findRange(String filterText, int page, int limit) {
         return em.createQuery("SELECT a FROM Article a WHERE LOWER(a.title) LIKE LOWER(:filterText) ORDER BY a.title ASC")
                 .setParameter("filterText", "%" + filterText + "%")
+                .setFirstResult(page * limit)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+    
+    public List<Article> findRange(String filterText, int page, int limit, Category selectedCategory) {
+        return em.createQuery("SELECT a FROM Article a WHERE a.category = :category AND LOWER(a.title) LIKE LOWER(:filterText) ORDER BY a.title ASC")
+                .setParameter("filterText", "%" + filterText + "%")
+                .setParameter("category", selectedCategory)
                 .setFirstResult(page * limit)
                 .setMaxResults(limit)
                 .getResultList();

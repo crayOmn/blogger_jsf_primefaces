@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <ui:insert name="title">
+            <title>Default Title</title>
+        </ui:insert>
+        <h:outputStylesheet library="css" name="public.css"/>
+        <h:outputStylesheet library="css" name="primeflex.min.css"/>
+    </h:head>
+    <h:body>
+        <h:form id="mainForm">
+            <p:outputPanel id="wrapperPanel" styleClass="wrapper-panel">
+
+                <p:outputPanel id="sidebar" styleClass="sidebar">
+                    <div class="brand">
+                        My Blogs
+                    </div>
+                    <p:menu styleClass="sidebar-menu">
+                        
+                        <p:submenu label="Kategori">
+                            <p:menuitem url="#{request.contextPath}/faces/index.xhtml"
+                                        value="Semua Kategori"
+                                        icon="pi pi-th-large"/>
+                            
+                            <c:forEach items="#{homeController.categories}"
+                                       var="category">
+                                <p:menuitem url="#{request.contextPath}/faces/index.xhtml?categoriesId=#{category.id}"
+                                            value="#{category.name}"
+                                            icon="pi pi-tag"/>
+                            </c:forEach>
+                            
+                        </p:submenu>
+                        
+                    </p:menu>
+                </p:outputPanel>
+
+                <p:outputPanel id="content" styleClass="content">
+
+                    <ui:insert name="content">
+                        <p:outputPanel id="main" styleClass="main">
+                            <h1>This's Content</h1>
+                        </p:outputPanel>
+                    </ui:insert>
+
+                </p:outputPanel>
+
+            </p:outputPanel>
+        </h:form>
+    </h:body>
+</html>
