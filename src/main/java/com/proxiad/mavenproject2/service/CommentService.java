@@ -26,7 +26,7 @@ public class CommentService {
         return em.find(Comment.class, id);
     }
     
-    public List<Comment> findByArtikel(Article article) {
+    public List<Comment> findByArticle(Article article) {
         return em.createQuery("SELECT c FROM Comment c WHERE c.article = :article ORDER BY c.createdAt DESC")
                 .getResultList();
     }

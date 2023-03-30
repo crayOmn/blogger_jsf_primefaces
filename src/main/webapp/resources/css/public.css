@@ -73,3 +73,19 @@ p {
     margin-bottom: 16px;
     font-size: 14px;
 }
+
+.detail-title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.detail-time {
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.detail-image {
+    margin-bottom: 16px;
+    max-width: 100%;
+}
